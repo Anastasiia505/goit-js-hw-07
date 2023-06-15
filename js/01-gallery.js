@@ -20,7 +20,10 @@ function onClick(e) {
         return;
  }
     const instance = basicLightbox.create
-        (`<img src="${e.target.dataset.source} "width=800", "height=600">`);
+      (`<img src="${e.target.dataset.source} "width=800", "height=600">`, {
+        onShow: (instance) => document.addEventListener('keydown', onKeydown),
+        onClose: (instance)=>document.removeEventListener('keydown', onKeydown)
+        });
     
     instance.show();
     
@@ -30,11 +33,6 @@ function onClick(e) {
     }
   }
 
-  document.addEventListener('keydown', onKeydown);
-
-  instance.on('beforeclose', () => {
-    document.removeEventListener('keydown', onKeydown);
-  });
 }
 
  
